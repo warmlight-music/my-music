@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Дискография</title>
+    <style>
+        body {
+            background-color: #1a1512;
+            color: #e6d5b8;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .site-header h1 {
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #d4af37;
+            margin: 0;
+        }
+
+        .main-cover-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .main-cover {
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 2px solid #3a2d24;
+            object-fit: cover;
+        }
+
+        .main-cover:hover {
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+            border-color: #d4af37;
+        }
+
+        .main-cover-text {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #a89b8c;
+            letter-spacing: 1px;
+        }
+
+        .player-container {
+            margin: 20px 0;
+            background: #2a211c;
+            padding: 15px;
+            border-radius: 30px;
+            border: 1px solid #4a3b2f;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            display: none; 
+        }
+
+        .player-container.active {
+            display: block; 
+        }
+
+        .now-playing {
+            font-size: 14px;
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* --- НОВАЯ АДАПТИВНАЯ СЕТКА --- */
+        .album-grid {
+            display: grid;
+            gap: 30px; /* Расстояние между карточками */
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            
+            /* Магия адаптивности: колонки будут сами подстраиваться */
+            /* Минимальная ширина карточки 220px, максимум 1fr (равные части) */
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            justify-items: center;
+        }
+
+        /* Карточка альбома */
+        .album-card {
+            width: 100%;
+            max-width: 250px; /* Ограничиваем максимальный размер на ПК */
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        .album-card:hover { transform: translateY(-8px); }
+
+        /* Контейнер для картинки */
+        .album-cover-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Идеальный квадрат */
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #3a2d24;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .album-card:hover .album-cover-container {
+            border-color: #d4af37;
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .album-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Блок с описанием */
+        .album-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 21, 18, 0.9);
+            color: #e6d5b8;
+            font-size: 13px;
+            padding: 15px;
+            box-sizing: border-box;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .album-card:hover .album-description {
+            transform: translateY(0);
+        }
+
+        .album-title {
+            font-size: 18px;
+            margin-top: 15px;
+            color: #e6d5b8;
+            font-weight: bold;
+        }
+
+        .album-year {
+            font-size: 14px;
+            color: #a89b8c;
+            margin-top: 5px;
+        }
+
+        /* --- МЕДИА-ЗАПРОСЫ ДЛЯ ТЕЛЕФОНОВ --- */
+        /* На экранах меньше 600px принудительно делаем 1 колонку */
+        @media (max-width: 600px) {
+            .album-grid {
+                grid-template-columns: 1fr; /* Строго 1 колонка */
+                gap: 40px;
+            }
+            .album-card {
+                max-width: 280px; /* Чуть крупнее на телефоне */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="site-header">
+        <h1>Моя Дискография</h1>
+    </div>
+
+    <div class="main-cover-container">
+        <img src="cover-0.jpg" alt="Дева" class="main-cover" onclick="playVirgo()">
+        <div class="main-cover-text" id="virgo-text">Нажми на знак, чтобы слушать</div>
+    </div>
+
+    <div class="player-container" id="player-container">
+        <div class="now-playing">Сейчас играет: Дева</div>
+        <audio id="audio-player" controls style="width: 100%;">
+            <source src="00.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Контейнер сетки -->
+    <div class="album-grid" id="album-grid">
+        <!-- Данные появятся здесь автоматически -->
+    </div>
+
+    <script>
+        function playVirgo() {
+            const playerContainer = document.getElementById('player-container');
+            playerContainer.classList.add('active');
+            document.getElementById('virgo-text').innerText = "Приятного прослушивания!";
+            document.getElementById('audio-player').play();
+        }
+
+        // Читаем файл albums.json и строим сетку
+        fetch('albums.json')
+            .then(response => response.json())
+            .then(albums => {
+                const grid = document.getElementById('album-grid');
+                
+                albums.forEach((album, index) => {
+                    const card = document.createElement('a');
+                    card.href = album.link;
+                    card.target = "_blank";
+                    card.rel = "noopener noreferrer";
+                    card.className = 'album-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+
+                    // Вставляем HTML
+                    card.innerHTML = `
+                        <div class="album-cover-container">
+                            <img src="${album.cover}" alt="${album.title}" class="album-cover">
+                            <div class="album-description">${album.description}</div>
+                        </div>
+                        <div class="album-title">${album.title}</div>
+                        <div class="album-year">${album.year}</div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+            })
+            .catch(error => console.error("Ошибка при загрузке альбомов:", error));
+    </script>
+
+</body>
+</html>

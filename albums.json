@@ -1,0 +1,52 @@
+[
+  {
+    "cover": "cover-1.jpg",
+    "title": "Тёплый свет",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/warm-light/",
+    "description": "Уютный акустический альбом о теплых моментах, ночных разговорах и светлой грусти.."
+  },
+  {
+    "cover": "cover-2.jpg",
+    "title": "Modern Talking",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/modern-talking/",
+    "description": "Неоновый ретро-хит. Энергия 80-х, яркие синтезаторы и танцпол до утра."
+  },
+  {
+    "cover": "cover-3.jpg",
+    "title": "Мираж",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/mirage/",
+    "description": "Ночной фиолетовый синтвейв. Архивные треки, окутанные тайной и неоновым светом."
+  },
+  {
+    "cover": "cover-4.jpg",
+    "title": "Минута тепла",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/minuta-tepla/",
+    "description": "Тёплый кофейный уют. История от драмы и расставания к тихому счастью и прощению."
+  },
+  {
+    "cover": "cover-5.jpg",
+    "title": "Из раннего (2CD)",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/iz-rannego/",
+    "description": "Концептуальный двойной сборник. Драма и принятие в первом томе, любовь и надежда — во втором."
+  },
+  {
+    "cover": "cover-6.jpg",
+    "title": "Тихое счастье",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/tihoye-schastye/",
+    "description": "Акустика и лоу-фай уют. О простых вещах, теплых звонках и умении замечать счастье."
+  },
+  {
+    "cover": "cover-7.jpg",
+    "title": "Точка опоры",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/tochka-opory/",
+    "description": "Описание: Светлый и мотивирующий альбом. Глоток свежего воздуха для тех, кто ищет поддержку."
+  }
+  
+]
