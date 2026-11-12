@@ -94,6 +94,40 @@
             line-height: 1.4;
         }
 
+        /* НОВАЯ КНОПКА ПЛЕЯ */
+        .play-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            font-style: normal;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background-color: #d4af37;
+            color: #1a1512;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Иконка Play (треугольник) */
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 10px solid currentColor; /* Наследует цвет текста */
+            margin-right: 8px;
+        }
+
         /* Плеер */
         .player-container {
             margin: 0 0 40px 0;
@@ -248,6 +282,11 @@
             <div class="slogan">
                 Пока вы думали, Дева это уже сделала!<br>
                 Эти песни для вас!
+            </div>
+            
+            <!-- НОВАЯ КНОПКА -->
+            <div class="play-button">
+                <div class="play-icon"></div> СЛУШАТЬ ПЕСНЮ
             </div>
         </div>
     </div>
