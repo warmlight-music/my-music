@@ -1,177 +1,309 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Моя Дискография</title>
-<style>
-  :root{
-    --bg:#121212;
-    --card:#1e1e1e;
-    --text:#ffffff;
-    --muted:#a0a0a0;
-  }
-  
-  body{
-    font-family: system-ui, -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    margin: 0;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    /* Отключаем выделение текста для более "приложенческого" вида */
-    -webkit-user-select: none; user-select: none; 
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя Дискография</title>
+    <style>
+        /* Базовые стили */
+        body {
+            background-color: #1a1512;
+            color: #e6d5b8;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-  header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
+        .site-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .site-header h1 {
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #d4af37;
+            margin: 0;
+        }
 
-  h1 {
-    font-size: clamp(28px, 6vw, 48px);
-    margin: 0 0 10px 0;
-    font-weight: 800;
-    letter-spacing: -1px;
-  }
+        /* Блок с обложкой и текстом */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            background: #2a211c;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #4a3b2f;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 850px;
+            width: 95%;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-  p.subtitle {
-    color: var(--muted);
-    font-size: 16px;
-    margin: 0;
-  }
+        .hero-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+        }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 1000px;
-  }
+        .main-cover {
+            width: 240px;
+            height: 240px;
+            border-radius: 15px;
+            border: 2px solid #3a2d24;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            flex-shrink: 0;
+        }
 
-  .album-card {
-    background: var(--card);
-    border-radius: 16px;
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
+        .verse-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #a89b8c;
+            font-style: italic;
+            text-align: left;
+        }
 
-  .album-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-  }
+        .verse-text strong {
+            color: #d4af37;
+            font-style: normal;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 22px;
+            letter-spacing: 2px;
+        }
 
-  .album-cover {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    background: #333;
-    pointer-events: none; /* <-- ВОТ ОНА, ВОЛШЕБНАЯ СТРОЧКА */
-  }
+        /* Слоган под куплетом */
+        .slogan {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #4a3b2f;
+            color: #d4af37;
+            font-weight: bold;
+            font-style: normal;
+            font-size: 15px;
+            line-height: 1.4;
+        }
 
-  .album-info {
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-  }
+        /* Плеер */
+        .player-container {
+            margin: 0 0 40px 0;
+            background: #2a211c;
+            padding: 15px;
+            border-radius: 30px;
+            border: 1px solid #4a3b2f;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            display: none; 
+        }
 
-  .album-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-  }
+        .player-container.active {
+            display: block; 
+        }
 
-  .album-desc {
-    font-size: 13px;
-    color: var(--muted);
-    margin: 0;
-    line-height: 1.4;
-  }
-</style>
+        .now-playing {
+            font-size: 14px;
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Сетка альбомов */
+        .album-grid {
+            display: grid;
+            gap: 30px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            justify-items: center;
+        }
+
+        .album-card {
+            width: 100%;
+            max-width: 250px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        .album-card:hover { transform: translateY(-8px); }
+
+        .album-cover-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #3a2d24;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .album-card:hover .album-cover-container {
+            border-color: #d4af37;
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .album-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .album-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 21, 18, 0.95);
+            color: #e6d5b8;
+            font-size: 13px;
+            padding: 15px;
+            box-sizing: border-box;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .album-card:hover .album-description {
+            transform: translateY(0);
+        }
+
+        .album-title {
+            font-size: 18px;
+            margin-top: 15px;
+            color: #e6d5b8;
+            font-weight: bold;
+        }
+
+        .album-year {
+            font-size: 14px;
+            color: #a89b8c;
+            margin-top: 5px;
+        }
+
+        /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ --- */
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+                gap: 20px;
+            }
+            .verse-text {
+                text-align: center;
+                font-size: 14px;
+            }
+            .album-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .album-card {
+                max-width: 280px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>Моя Музыка</h1>
-    <p class="subtitle">Выбери альбом и наслаждайся</p>
-  </header>
+    <div class="site-header">
+        <h1>Моя Дискография</h1>
+    </div>
 
-  <div class="grid">
-    
-    <!-- 1. Тёплый свет -->
-    <a href="https://warmlight-music.github.io/warm-light/" class="album-card">
-      <img src="cover-1.jpg" alt="Тёплый свет" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Тёплый свет</h2>
-        <p class="album-desc">Уютный акустический альбом о теплых моментах и светлой грусти. Включает бонус-альбом «После дождя».</p>
-      </div>
-    </a>
+    <!-- Блок с обложкой, текстом и слоганом -->
+    <div class="hero-section" onclick="playVirgo()">
+        <img src="cover-0.jpg" alt="Дева" class="main-cover">
+        <div class="verse-text">
+            <strong>ДЕВА</strong>
+            Хочу поведать вам сейчас<br>
+            Про тех, кто Девою зовётся.<br>
+            Кто был рожден под этот знак,<br>
+            И с чем им жить теперь придётся.<br>
+            И что в них есть, и что не так,<br>
+            Что с грустью в сердце отзовётся.<br>
+            И почему их путь так крут,<br>
+            И почему они не гнутся.
+            
+            <div class="slogan">
+                Пока вы думали, Дева это уже сделала!<br>
+                Эти песни для вас!
+            </div>
+        </div>
+    </div>
 
-    <!-- 2. Modern Talking -->
-    <a href="https://warmlight-music.github.io/modern-talking/" class="album-card">
-      <img src="cover-2.jpg" alt="Modern Talking" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Modern Talking</h2>
-        <p class="album-desc">Неоновый ретро-хит. Энергия 80-х, яркие синтезаторы и танцпол до утра.</p>
-      </div>
-    </a>
+    <!-- Плеер -->
+    <div class="player-container" id="player-container">
+        <div class="now-playing">Сейчас играет: Дева</div>
+        <audio id="audio-player" controls style="width: 100%;">
+            <source src="00.mp3" type="audio/mpeg">
+        </audio>
+    </div>
 
-    <!-- 3. Мираж -->
-    <a href="https://warmlight-music.github.io/mirage/" class="album-card">
-      <img src="cover-3.jpg" alt="Мираж" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Мираж</h2>
-        <p class="album-desc">Ночной фиолетовый синтвейв. Архивные треки, окутанные тайной и неоновым светом.</p>
-      </div>
-    </a>
+    <!-- Сетка альбомов -->
+    <div class="album-grid" id="album-grid">
+        <!-- Данные подгрузятся из albums.json -->
+    </div>
 
-    <!-- 4. Минута тепла -->
-    <a href="https://warmlight-music.github.io/minuta-tepla/" class="album-card">
-      <img src="cover-4.jpg" alt="Минута тепла" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Минута тепла</h2>
-        <p class="album-desc">Тёплый кофейный уют. История от драмы и расставания к тихому счастью и прощению.</p>
-      </div>
-    </a>
+    <script>
+        function playVirgo() {
+            const playerContainer = document.getElementById('player-container');
+            playerContainer.classList.add('active');
+            
+            const audio = document.getElementById('audio-player');
+            if (audio.paused) {
+                audio.play();
+            }
+        }
 
-    <!-- 5. Из раннего -->
-    <a href="https://warmlight-music.github.io/iz-rannego/" class="album-card">
-      <img src="cover-5.jpg" alt="Из раннего" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Из раннего (2CD)</h2>
-        <p class="album-desc">Концептуальный двойной сборник. Драма и принятие в первом томе, любовь и надежда — во втором.</p>
-      </div>
-    </a>
+        // Загрузка альбомов из JSON
+        fetch('albums.json')
+            .then(response => response.json())
+            .then(albums => {
+                const grid = document.getElementById('album-grid');
+                
+                albums.forEach((album, index) => {
+                    const card = document.createElement('a');
+                    card.href = album.link;
+                    card.target = "_blank";
+                    card.rel = "noopener noreferrer";
+                    card.className = 'album-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
 
-    <!-- 6. Тихое счастье -->
-    <a href="https://warmlight-music.github.io/tihoye-schastye/" class="album-card">
-      <img src="cover-6.jpg" alt="Тихое счастье" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Тихое счастье</h2>
-        <p class="album-desc">Акустика и лоу-фай уют. О простых вещах, теплых звонках и умении замечать счастье в моменте.</p>
-      </div>
-    </a>
+                    card.innerHTML = `
+                        <div class="album-cover-container">
+                            <img src="${album.cover}" alt="${album.title}" class="album-cover">
+                            <div class="album-description">${album.description}</div>
+                        </div>
+                        <div class="album-title">${album.title}</div>
+                        <div class="album-year">${album.year}</div>
+                    `;
 
-    <!-- 7. Точка опоры -->
-    <a href="https://warmlight-music.github.io/tochka-opory/" class="album-card">
-      <img src="cover-7.jpg" alt="Точка опоры" class="album-cover">
-      <div class="album-info">
-        <h2 class="album-title">Точка опоры</h2>
-        <p class="album-desc">Светлый и мотивирующий альбом. Глоток свежего воздуха для тех, кто ищет поддержку и веру в себя.</p>
-      </div>
-    </a>
-
-  </div>
+                    grid.appendChild(card);
+                });
+            })
+            .catch(error => console.error("Ошибка при загрузке альбомов:", error));
+    </script>
 
 </body>
 </html>
