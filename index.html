@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Дискография</title>
+    <title>Секреты счастья | Дискография</title>
     <style>
         /* Базовые стили */
         body {
@@ -20,15 +20,46 @@
 
         .site-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            margin-top: 20px;
         }
         
         .site-header h1 {
-            font-size: 24px;
-            letter-spacing: 3px;
+            font-size: 32px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: #d4af37;
             margin: 0;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .site-header p {
+            color: #a89b8c;
+            font-style: italic;
+            margin-top: 15px;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        /* Декоративная линия под заголовком */
+        .header-line {
+            width: 150px;
+            height: 2px;
+            background-color: #4a3b2f;
+            margin: 20px auto 0 auto;
+            position: relative;
+        }
+
+        .header-line::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 6px;
+            background-color: #d4af37;
+            border-radius: 3px;
         }
 
         /* Блок с обложкой и текстом */
@@ -94,7 +125,7 @@
             line-height: 1.4;
         }
 
-        /* НОВАЯ КНОПКА ПЛЕЯ */
+        /* Кнопка Плея */
         .play-button {
             display: inline-flex;
             align-items: center;
@@ -118,13 +149,12 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
-        /* Иконка Play (треугольник) */
         .play-icon {
             width: 0;
             height: 0;
             border-top: 6px solid transparent;
             border-bottom: 6px solid transparent;
-            border-left: 10px solid currentColor; /* Наследует цвет текста */
+            border-left: 10px solid currentColor;
             margin-right: 8px;
         }
 
@@ -239,6 +269,13 @@
 
         /* --- АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
+            .site-header h1 {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+            .site-header p {
+                font-size: 14px;
+            }
             .hero-section {
                 flex-direction: column;
                 text-align: center;
@@ -261,8 +298,11 @@
 </head>
 <body>
 
+    <!-- НОВЫЙ ЗАГОЛОВОК -->
     <div class="site-header">
-        <h1>Моя Дискография</h1>
+        <h1>Секреты счастья</h1>
+        <p>Мудрые слова о любви, верности и тепле</p>
+        <div class="header-line"></div>
     </div>
 
     <!-- Блок с обложкой, текстом и слоганом -->
@@ -284,7 +324,6 @@
                 Эти песни для вас!
             </div>
             
-            <!-- НОВАЯ КНОПКА -->
             <div class="play-button">
                 <div class="play-icon"></div> СЛУШАТЬ ПЕСНЮ
             </div>
