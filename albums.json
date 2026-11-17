@@ -68,5 +68,12 @@
     "year": "2026",
     "link": "https://warmlight-music.github.io/neon-nochi80/",
     "description": "Хиты 70-80х, которые невозможно забыть. Современная версия."
+  },
+  {
+    "cover": "cover-11.jpg",
+    "title": "Pink Floyd.The Velvet Horizon",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/velvet-horizon/",
+    "description": "Уникальная архивная находка 1975 года.Семь восстановленных композиций: от пульсирующих синтезаторов и плачущей гитары до бесконечного бархатного горизонта."
   }
 ]
