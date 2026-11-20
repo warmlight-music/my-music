@@ -48,6 +48,13 @@
     "year": "2026",
     "link": "https://warmlight-music.github.io/shanson-dlya-dushi/",
     "description": "Подборка тёплых песен из мира шасона. О простых вещах, чувствах, отношениях и ценностях."
+  }, 
+  {
+    "cover": "cover-16.jpg",
+    "title": "Свет в прихожей ",
+    "year": "2026",
+    "link": "https://warmlight-music.github.io/svet-v-prihozhey/",
+    "description": "Хрустальный женский вокал, каскады рояля и оркестровые струнные — светлое виниловое путешествие."
   },
   {
     "cover": "cover-9.jpg",
@@ -96,13 +103,6 @@
     "title": "Crystal Northern Light — Stockholm 1981. ABBA ",
     "year": "2026",
     "link": "https://warmlight-music.github.io/abba-2026/",
-    "description": "Хрустальный женский вокал, каскады рояля и оркестровые струнные — светлое виниловое путешествие."
-  },
-  {
-    "cover": "cover-16.jpg",
-    "title": "Свет в прихожей ",
-    "year": "2026",
-    "link": "https://warmlight-music.github.io/svet-v-prihozhey/",
     "description": "Хрустальный женский вокал, каскады рояля и оркестровые струнные — светлое виниловое путешествие."
   }
 ]
